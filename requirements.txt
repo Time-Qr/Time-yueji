@@ -1,0 +1,11 @@
+numpy>=1.26,<3
+opencv-python-headless>=4.8
+Pillow>=10.0
+scipy>=1.10
+scikit-image>=0.21
+onnxruntime>=1.17,<2
+PyMatting>=1.1.12
+rawpy>=0.19
+ExifRead>=3.0
+piexif>=1.1
+PySide6-Essentials>=6.8,<7

@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.installed
+input/
+output/
+output_interactive/
+*.pyc
+*.part
+models/*.onnx

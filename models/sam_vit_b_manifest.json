@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "model": "sam_vit_b",
+  "created_utc": "2026-11-11T08:21:23.951145+00:00",
+  "source": {
+    "repository": "https://github.com/facebookresearch/segment-anything",
+    "commit": "dca509fe793f601edb92606367a655c15ac00fdf",
+    "license": "Apache-2.0",
+    "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "onnx_py_sha256": "b4410ac1dc9a7bb3a09827520fa08454f9b397608775e2fe4ebfb7c8dbb02666",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth",
+    "checkpoint_sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912"
+  },
+  "preprocess": {
+    "input_size": 1024,
+    "resize": "longest-side, round-half-up, bottom-right zero padding",
+    "mean_rgb": [
+      123.675,
+      116.28,
+      103.53
+    ],
+    "std_rgb": [
+      58.395,
+      57.12,
+      57.375
+    ]
+  },
+  "encoder": {
+    "file": "sam_vit_b_encoder.onnx",
+    "bytes": 359076485,
+    "sha256": "bfbbd5b0bdc52ca2aa09d80e69c239a10523ef84974628643fecd35d60f0fa3b",
+    "inputs": [
+      [
+        "image",
+        "tensor(float)",
+        [
+          1,
+          3,
+          1024,
+          1024
+        ]
+      ]
+    ],
+    "outputs": [
+      [
+        "image_embeddings",
+        "tensor(float)",
+        [
+          1,
+          256,
+          64,
+          64
+        ]
+      ]
+    ],
+    "opset": 17
+  },
+  "decoder": {
+    "file": "sam_vit_b_decoder.onnx",
+    "bytes": 16496904,
+    "sha256": "017b8cfc31a809806ef49be29fbb7446f835b1cd8ebf7b8d69b3c8bde403683f",
+    "inputs": [
+      [
+        "image_embeddings",
+        "tensor(float)",
+        [
+          1,
+          256,
+          64,
+          64
+        ]
+      ],
+      [
+        "point_coords",
+        "tensor(float)",
+        [
+          1,
+          "num_points",
+          2
+        ]
+      ],
+      [
+        "point_labels",
+        "tensor(float)",
+        [
+          1,
+          "num_points"
+        ]
+      ],
+      [
+        "mask_input",
+        "tensor(float)",
+        [
+          1,
+          1,
+          256,
+          256
+        ]
+      ],
+      [
+        "has_mask_input",
+        "tensor(float)",
+        [
+          1
+        ]
+      ],
+      [
+        "orig_im_size",
+        "tensor(float)",
+        [
+          2
+        ]
+      ]
+    ],
+    "outputs": [
+      [
+        "masks",
+        "tensor(float)",
+        [
+          "Resizemasks_dim_0",
+          "Resizemasks_dim_1",
+          "Resizemasks_dim_2",
+          "Resizemasks_dim_3"
+        ]
+      ],
+      [
+        "iou_predictions",
+        "tensor(float)",
+        [
+          "Gemmiou_predictions_dim_0",
+          4
+        ]
+      ],
+      [
+        "low_res_masks",
+        "tensor(float)",
+        [
+          "Reshapelow_res_masks_dim_0",
+          "Reshapelow_res_masks_dim_1",
+          "Reshapelow_res_masks_dim_2",
+          "Reshapelow_res_masks_dim_3"
+        ]
+      ]
+    ],
+    "opset": 17,
+    "return_single_mask": false
+  },
+  "validation": {
+    "image": "input\\20260918_51.jpg",
+    "original_hw": [
+      1800,
+      1350
+    ],
+    "resized_hw": [
+      1024,
+      768
+    ],
+    "embedding": {
+      "max_abs": 3.0994415283203125e-06,
+      "mean_abs": 1.3188023662361048e-07,
+      "shape": [
+        1,
+        256,
+        64,
+        64
+      ]
+    },
+    "masks": {
+      "max_abs": 0.0005168914794921875,
+      "mean_abs": 9.983257114759558e-05,
+      "shape": [
+        1,
+        4,
+        1024,
+        768
+      ]
+    },
+    "scores": {
+      "max_abs": 5.9604644775390625e-06,
+      "mean_abs": 3.3974647521972656e-06,
+      "shape": [
+        1,
+        4
+      ]
+    },
+    "low_res_masks": {
+      "max_abs": 0.0005474090576171875,
+      "mean_abs": 9.373864748914162e-05,
+      "shape": [
+        1,
+        4,
+        256,
+        256
+      ]
+    },
+    "candidate_iou": [
+      0.9999350657783665,
+      0.9999895102327679,
+      1.0,
+      1.0
+    ],
+    "checks": {
+      "embedding_max_abs_lt_1e-3": true,
+      "masks_max_abs_lt_2e-3": true,
+      "scores_max_abs_lt_1e-4": true,
+      "low_res_max_abs_lt_1e-3": true,
+      "mask_iou_gt_0_999": true
+    }
+  }
+}
