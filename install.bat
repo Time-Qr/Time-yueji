@@ -8,14 +8,14 @@ set "BASE_PY=python"
 if errorlevel 1 set "BASE_PY=py -3"
 %BASE_PY% -c "import sys" >nul 2>&1
 if errorlevel 1 (
-    echo [错误] 找不到 Python 3.10 - 3.12（64 位）。
+    echo [错误] 找不到 Python 3.10 - 3.14（64 位）。
     pause
     exit /b 1
 )
 
-%BASE_PY% -c "import sys; raise SystemExit(0 if (3,10)<=sys.version_info<(3,13) else 1)"
+%BASE_PY% -c "import sys; raise SystemExit(0 if (3,10)<=sys.version_info<(3,15) else 1)"
 if errorlevel 1 (
-    echo [错误] Python 版本必须是 3.10 - 3.12。
+    echo [错误] Python 版本必须是 3.10 - 3.14。
     pause
     exit /b 1
 )

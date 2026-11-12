@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 MODELS = ROOT / "models"
 RELEASE_BASE = (
-    "https://github.com/Time-Qr/Time-yueji/releases/download/v1.0.0/"
+    "https://github.com/Time-Qr/Time-yueji/releases/download/v1.1.0/"
 )
 
 
